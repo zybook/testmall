@@ -5,12 +5,27 @@
 </template>
 
 <script>
-    import NavBar  from 'components/common/navbar/NavBar'
+    import NavBar  from 'components/common/navbar/NavBar';
+    import {GetHomeMultidata} from "network/home"
 
     export default {
         name: "Home",
+        data(){
+            return {
+                banners:[],
+                recommends:[]
+            }
+        },
         components: {
             NavBar
+        },
+        created() {
+            GetHomeMultidata().then(res => {
+                //this.result = res;
+                this.banners = res.data.banner.list;
+                this.recommends = res.data.recommend.list
+                }
+            )
         }
     }
 </script>
