@@ -1,23 +1,34 @@
 <template>
     <div id="home">
-        <nav-bar class="home-nav"><div slot="center">购物街</div> </nav-bar>
+        <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
+        <home-swiper :banners="banners"></home-swiper>
+        <recommend-view :recommends="recommends"></recommend-view>
+        <feature-view></feature-view>
     </div>
 </template>
 
 <script>
     import NavBar  from 'components/common/navbar/NavBar';
-    import {GetHomeMultidata} from "network/home"
+    import HomeSwiper from "./childComps/HomeSwiper";
+    import RecommendView from "./childComps/RecommendView";
+    import FeatureView from "./childComps/FeatureView";
+
+    import {GetHomeMultidata} from "network/home";
+
 
     export default {
         name: "Home",
         data(){
             return {
                 banners:[],
-                recommends:[]
+                recommends:[],
             }
         },
         components: {
-            NavBar
+            NavBar,
+            HomeSwiper,
+            RecommendView,
+            FeatureView
         },
         created() {
             GetHomeMultidata().then(res => {
@@ -31,9 +42,18 @@
 </script>
 
 <style scoped>
+    #home{
+       padding-top: 44px;
+    }
     .home-nav{
         background-color: var(--color-tint);
         color: #fff;
+
+        position: fixed;
+        left:0;
+        right:0;
+        top:0;
+        z-index: 9;
     }
 
 </style>
